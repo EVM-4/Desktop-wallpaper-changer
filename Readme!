@@ -1,0 +1,30 @@
+Good day my dear viewer! 
+My name is Adhitya and i made this crude yet working (hopefully) peice of code to change your desktop wallpaper at predetermined times.
+I intent to use this space and occupy your attension to explain more about this code.
+
+Intro:
+
+This code looks into a directory, where your desired pictures are present, and then at certain time intervals displays them. In more detail, the code
+makes lost of the file location of the pictures and when it is time will "spin" a random number and display the picture of which correspond to the positon 
+on the list.
+
+Now we can go into the modes.
+
+Basic file dictory system: 
+The code has been set up to take pictures from 4 seperate file directories. Let us lable the first 3 morning, afternoon and evening (this will make sense
+in a minute) and the last being "test". Now all 4 directories must be under 1 root directory for the code to work. 
+
+Mode 1:
+
+This function asks the user to input a morning, afternoon and night start and end time.
+From the morning start to morning end - it will display a random picture from the morning file. Same happens for the afternoon and evening.
+However an important point, to prevent the picture from always changing as the loop reruns, a 'trigger window' is automatically made where a random number 
+is generated and displayed through out the start - end window. This makes sure a random number isnt constantly generated. In between the morning afternoon
+and evening slots, the 4th list of pictures will run every 10 min, I think, im not sure why/how a certain varible is even defined.
+
+Mode 2:
+
+This only takes pictures from the "test" list and makes a slideshow every 45 minutes (this time delay between pics can be ajusted if you want)
+
+Edit - 22:30 16/11/2023 - something isnt working, seems simple i shall fix it and go to bed
+                                                                                                                              
