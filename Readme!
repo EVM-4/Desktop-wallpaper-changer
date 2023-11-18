@@ -8,11 +8,36 @@ This code looks into a directory, where your desired pictures are present, and t
 makes lost of the file location of the pictures and when it is time will "spin" a random number and display the picture of which correspond to the positon 
 on the list.
 
+
+NOTE: make sure you pip install the required modules! Google should provide the command line, just copy paste into the termimal
+
 Now we can go into the modes.
 
 Basic file dictory system: 
 The code has been set up to take pictures from 4 seperate file directories. Let us lable the first 3 morning, afternoon and evening (this will make sense
 in a minute) and the last being "test". Now all 4 directories must be under 1 root directory for the code to work. 
+Here is the required tree structure
+root dict
+  >Morning dict
+    >Morning pictures
+  >Aft dict
+    >Aft pics
+  >Night dict
+    >Night pictures
+  >Mode 2 dict
+For those using pycharm here is how i set up my dict (u can try something diff but i cant garentie if it works)
+Code folder
+  >idea
+  >venv
+  >main.py
+  >Root dict
+    >Morning
+    >Aft
+    >night
+    >Mode 2 dict
+    
+
+
 
 Mode 1:
 
@@ -27,4 +52,8 @@ Mode 2:
 This only takes pictures from the "test" list and makes a slideshow every 45 minutes (this time delay between pics can be ajusted if you want)
 
 Edit - 22:30 16/11/2023 - something isnt working, seems simple i shall fix it and go to bed
+Edit - 10:31 18/11/2023 - mode 2 works for sure - havnt tested mode one (too scared to) 
+
+Credits:
+Thank you to Sumit and Iceman!
                                                                                                                               
