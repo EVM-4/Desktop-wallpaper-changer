@@ -14,22 +14,22 @@ while True:
     Morning_Start = "05:00"
     Morning_End = "08:00"
     #Where the morning files are found - input your full folder directory
-    Morning_Pics_File_Dict = r"C:\Users\ADHIT\OneDrive\Cool Proggrammes\WALLPAPER\Sample wallpapers\Morning"
+    Morning_Pics_File_Dict = r"#:\your\folder\path\here"
     Aft_Start = "11:30"
     Aft_End = "18:00"
     #Where the afternoon files are found
-    Aft_Pics_File_Dict = r"C:\Users\ADHIT\OneDrive\Cool Proggrammes\WALLPAPER\Sample wallpapers\Afternoon"
+    Aft_Pics_File_Dict = r"#:\your\folder\path\here"
     Night_Start = "20:00"
     Night_End = "23:59"
     #Time duration for wallpaper switch in mode 2 (in minutes!!!)
     Mode_2_time_delay = 45
     #Where the night files are found
-    Night_Pics_File_Dict = r"C:\Users\ADHIT\OneDrive\Cool Proggrammes\WALLPAPER\Sample wallpapers\Night"
+    Night_Pics_File_Dict = r"#:\your\folder\path\here"
     #Where the mode 2 pics are found
-    Mode_2_wallpapers = "C:/Users/ADHIT/OneDrive/Cool Proggrammes/WALLPAPER/Sample wallpapers/Test wallpaper"
+    Mode_2_wallpapers = "#:/your/folder/path/here"
     #which directory do your seperate folders exsist in - this code needs all seperate folders to exisist in a root directory
     #for the time being at least
-    Root_Dict = r"C:\Users\ADHIT\OneDrive\Cool Proggrammes\WALLPAPER\Sample wallpapers"
+    Root_Dict = r"#:\your\root\folder\here\please\thanks"
     Run_Mode_1 = False
 
     Run_Mode_2 = True
