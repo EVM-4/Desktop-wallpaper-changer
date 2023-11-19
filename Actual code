@@ -1,36 +1,36 @@
 import ctypes
 import random
-import os
 import cv2
+import os
 import time
 import datetime
 import sys
-from PIL import Image
-import schedule
 # The code
 while True:
     print("start")
 
-    Morning_Start = "05:00"
-    Morning_End = "08:00"
+    Morning_Start = "07:00"
+    Morning_End = "12:00"
     #Where the morning files are found - input your full folder directory
-    Morning_Pics_File_Dict = r"#:\your\folder\path\here"
-    Aft_Start = "11:30"
-    Aft_End = "18:00"
+    Morning_Pics_File_Dict = r"#:\your\morning\folder\please"
+    Aft_Start = "13:00"
+    Aft_End = "17:00"
     #Where the afternoon files are found
-    Aft_Pics_File_Dict = r"#:\your\folder\path\here"
-    Night_Start = "20:00"
-    Night_End = "23:59"
+    Aft_Pics_File_Dict = r"#:\your\aft\folders\please"
+    Night_Start = "19:10"
+    Night_End = "23:00"
     #Time duration for wallpaper switch in mode 2 (in minutes!!!)
-    Mode_2_time_delay = 45
+    Mode_2_time_delay = 0.1
+    Both_mode_delay = 0.1
     #Where the night files are found
-    Night_Pics_File_Dict = r"#:\your\folder\path\here"
+    Night_Pics_File_Dict = r"#:\your\night\folders\please"
     #Where the mode 2 pics are found
-    Mode_2_wallpapers = "#:/your/folder/path/here"
+    Mode_2_wallpapers = r"#:\your\mode2\folders\please"
     #which directory do your seperate folders exsist in - this code needs all seperate folders to exisist in a root directory
     #for the time being at least
-    Root_Dict = r"#:\your\root\folder\here\please\thanks"
-    Run_Mode_1 = False
+    Root_Dict = r"#:\your\root\folders\please"
+    #if run mode 1 and run mode 2 are true - then it will be both mode 1 with mode 2 during interval
+    Run_Mode_1 = True
 
     Run_Mode_2 = True
 
@@ -55,7 +55,7 @@ while True:
         mpic = os.path.join(Morning_Pics_File_Dict,morningpicture)
         morning_picture.append(mpic) #adds the full file path in the created array
 
-    if Checker == True:
+    if Checker is True:
         print("Below is the complete address of the picture and below still is the list of complete addresses in an array")
         print(mpic)
         print(morning_picture)
@@ -87,13 +87,15 @@ while True:
 
     def createtriggertimes(starttime):
 
-        triggerstart = starttime - datetime.timedelta(minutes=11)
-        triggerend = starttime - datetime.timedelta(seconds=1)
+        intstarttime = datetime.datetime.strptime(starttime, '%H:%M')
+        triggerstart = intstarttime - datetime.timedelta(minutes=11)
+        triggerend = intstarttime - datetime.timedelta(seconds=1)
 
         return triggerstart,triggerend
 
 
-
+    def inify(time):
+        return datetime.datetime.strptime(time, '%H:%M')
 
 
     now = datetime.datetime.now()
@@ -103,45 +105,72 @@ while True:
 
 
 
-    def wallpaperdayswitch(Morning_Start,Aft_Start,Night_Start):
+    def wallpaperdayswitch(Morning_Start,Aft_Start,Night_Start,x):
 
         Morning_Trigger_Start,Morning_Trigger_End = createtriggertimes(Morning_Start)
         Aft_Trigger_Start, Aft_Trigger_End = createtriggertimes(Aft_Start)
         Night_Trigger_Start, Night_Trigger_End = createtriggertimes(Night_Start)
 
 
-        if now >> Morning_Trigger_Start and now << Morning_Trigger_End:
+        if current_time > Morning_Trigger_Start and current_time < Morning_Trigger_End:
 
-            m = random.randint(0, len(morning_picture) - 1)
+            if x is False:
+                m = random.randint(0, len(morning_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, morning_picture[m], 3)
+            elif x is True:
+                pass
 
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, morning_picture[m], 3)
+        elif current_time > inify(Morning_Start) and current_time < inify(Morning_End):
+            if x is False:
+                pass
+            if x is True:
+                m = random.randint(0, len(morning_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, morning_picture[m], 3)
 
-        if now >> Morning_Start and now << Morning_End:
-            pass
+
+        elif current_time > Aft_Trigger_Start   and current_time < Aft_Trigger_End:
+
+            if x is False:
+                a = random.randint(0, len(aft_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, aft_picture[a], 3)
+            elif x is True:
+                pass
+
+        elif current_time > inify(Aft_Start) and current_time < inify(Aft_End):
+
+            if x is True:
+                a = random.randint(0, len(aft_picture) - 1)
+                print(f"Now is aft time{a}")
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, aft_picture[a], 3)
+            elif x is False:
+                pass
 
 
-        if now >>Aft_Trigger_Start   and now << Aft_Trigger_End:
 
-            a = random.randint(0, len(aft_picture) - 1)
+        elif current_time > Night_Trigger_Start and current_time < Night_Trigger_End:
+            if x is False: # mode 1
+                n = random.randint(0, len(night_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, night_picture[n], 3)
+                print(n)
+            elif x is True: # mode 2
+                pass
 
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, aft_picture[a], 3)
+        elif current_time > inify(Night_Start) and current_time < inify(Night_End):
+            if x is True:
+                n = random.randint(0, len(night_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, night_picture[n], 3)
+                print(f"Night number: {n}")
+            elif x is False:
+                pass
 
-        if now >> Aft_Start and now << Aft_End:
-            pass
+        else: #Void for now
+            if x is True:
+                pass
+            elif x is False:
+                t = random.randint(0, len(test_picture) - 1)
+                ctypes.windll.user32.SystemParametersInfoW(20, 0, test_picture[t], 3)
+                print(f"helicopter time{t}")
 
-        if now >> Night_Trigger_Start and now << Night_Trigger_End:
-
-            n = random.randint(0, len(night_picture) - 1)
-
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, night_picture[n], 3)
-
-        if now >> Night_Start and now << Night_End:
-
-            pass
-
-        else:
-            #Not sure where i defined t
-            ctypes.windll.user32.SystemParametersInfoW(20, 0, test_picture[t], 3)
 
 
 
@@ -155,9 +184,9 @@ while True:
     if Run_Mode_1 == True and Run_Mode_2 == False:
         print("Running mode 1")
         # Get error:Type 'str' doesn't have expected attribute '__sub__' - Not sure why
-        wallpaperdayswitch(Morning_Start,Aft_Start,Night_Start)
-        print("Func ran, will loop in 599 sec")
-        time.sleep(599)
+        wallpaperdayswitch(Morning_Start,Aft_Start,Night_Start,True)
+        print("Func ran, will loop in 59+ sec")
+        time.sleep(6)
 
     elif Run_Mode_1 == False and Run_Mode_2 == True:
         print("Running mode 2") # Will be done in the future
@@ -168,12 +197,14 @@ while True:
     elif Run_Mode_1 == False and Run_Mode_2 == False:
         print("Nothing running")
     elif Run_Mode_1 == True and Run_Mode_2 == True:
-        print("Error - both modes are set to true")
+        print("Running mode 1 and 2")
+        # Get error:Type 'str' doesn't have expected attribute '__sub__' - Not sure why
+        wallpaperdayswitch(Morning_Start, Aft_Start, Night_Start, False)
+        print(f"Func ran, will loop in {Both_mode_delay*60} sec")
+        time.sleep(Both_mode_delay*60)
+
     else:
         print("you done goofed up")
-
-
-    time.sleep(600)
 
 
 
