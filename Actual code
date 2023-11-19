@@ -1,6 +1,6 @@
-import ctypes
+import ctypes  #pip install ctypes
 import random
-import cv2
+import cv2    #pip install opencv2
 import os
 import time
 import datetime
